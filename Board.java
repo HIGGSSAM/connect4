@@ -5,6 +5,11 @@
 // [X] printing board: 6 by 7 array.
 // [ ] add comments.
 // [ ] add logger to handle outputs.
+//
+// modifies printBoard() lines 129 - 145.
+// modifies placeCounter() Lines 147 - 175.
+//  removes player if test from placeCounter. 
+//  instead uses Counter class. 
 
 public class Board {
 
@@ -39,9 +44,7 @@ public class Board {
     }
 
     public boolean addPiece(int columnToAdd, String colour) {
-
         boolean addedpiece = false;
-
         // check if a correct column is selected.
         if (columnToAdd >= 0 && columnToAdd < columns) {
             // check if the column selected is full.
