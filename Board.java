@@ -1,7 +1,7 @@
 
 // NOTES
 // -----
-// [ ] adding pieces to the board.
+// [X] adding counters to the board.
 // [X] printing board: 6 by 7 array.
 // [ ] add comments.
 // [ ] add logger to handle outputs.
@@ -11,7 +11,7 @@ public class Board {
     private static int rows = 6;
     private static int columns = 7;
 
-    Piece[][] newBoard = new Piece[rows][columns];
+    Counter[][] newBoard = new Counter[rows][columns];
 
     public void getBoard() {
         for (int row = 0; row < rows; row++) {
@@ -42,14 +42,15 @@ public class Board {
 
         boolean addedpiece = false;
 
-        // check if correct column is selected.
+        // check if a correct column is selected.
         if (columnToAdd >= 0 && columnToAdd < columns) {
-            // check if column selected is full.
+            // check if the column selected is full.
             if (newBoard[0][columnToAdd] == null) {
+                // iterate through positions in column from bottom to top.
                 for (int row = rows - 1; row >= 0; row--) {
-                    // check if
+                    // if possition in column is empty.
                     if (newBoard[row][columnToAdd] == null) {
-                        newBoard[row][columnToAdd] = new Piece();
+                        newBoard[row][columnToAdd] = new Counter();
                         newBoard[row][columnToAdd].setColour(colour);
                         addedpiece = true;
                         break;
