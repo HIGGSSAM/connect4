@@ -18,12 +18,19 @@ public class Board {
 
     Counter[][] newBoard = new Counter[rows][columns];
 
-    public void getBoard() {
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
-                newBoard[row][column] = null;
-            }
-        }
+    // accessor -
+    public int getRows() {
+        return rows;
+    }
+
+    // accessor -
+    public int getColumns() {
+        return columns;
+    }
+
+    // accessor -
+    public Counter[][] getBoard() {
+        return newBoard;
     }
 
     public void printBoard() {
@@ -40,7 +47,7 @@ public class Board {
             System.out.println();
         }
         System.out.println("    1\t    2\t    3\t    4\t    5\t    6\t    7");
-        System.out.println("");
+        System.out.println();
     }
 
     public boolean addPiece(int columnToAdd, String colour) {
