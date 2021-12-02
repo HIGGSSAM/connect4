@@ -3,7 +3,7 @@
 // -----
 // [X] adding counters to the board.
 // [X] printing board: 6 by 7 array.
-// [ ] add comments.
+// [X] add comments.
 // [ ] add logger to handle outputs.
 //
 // modifies printBoard() lines 129 - 145.
@@ -51,6 +51,7 @@ public class Board {
         System.out.println();
     }
 
+    //
     public static boolean addPiece(int columnToAdd, String colour) {
         boolean addedpiece = false;
         // check if a correct column is selected.

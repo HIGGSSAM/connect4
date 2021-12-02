@@ -26,6 +26,7 @@ public class ConnectFour {
 
         // for each turn.
         while (Boolean.TRUE.equals(gameRunning)) {
+
             String colour;
 
             // checking the turn.
@@ -36,14 +37,13 @@ public class ConnectFour {
             } else {
                 colour = compColour;
                 System.out.println("Current Turn : Computer\n");
-
             }
 
             // print the board.
             board.printBoard();
 
-            System.out.println("Select a column value between 1 and " + board.getColumns() + ":");
             // getting user input.
+            System.out.println("Select a column value between 1 and " + board.getColumns() + ":");
             Scanner input = new Scanner(System.in);
             int selection = input.nextInt() - 1;
 
@@ -53,15 +53,17 @@ public class ConnectFour {
             // if piece added end turn.
             if (Boolean.TRUE.equals(successful)) {
                 // checks if there is a winner.
-                if (checkWinState()) {
+                if (checkWinState(colour)) {
                     // winner found - end of the game.
                     gameRunning = !gameRunning;
+                    // get winner colour.
                 } else if (checkDrawState()) {
                     // draw condition found - end of the game.
                     gameRunning = !gameRunning;
-                } else {
-                    playerTurn = !playerTurn;
                 }
+
+                playerTurn = !playerTurn;
+
             }
         }
     }
@@ -72,71 +74,90 @@ public class ConnectFour {
     }
 
     // accessor - returns boolean if the win condition is meant.
-    public boolean checkWinState() {
+    public boolean checkWinState(String colour) {
 
         Boolean winner = false;
-        // add checks here.
+        if (checkHorizontal(colour)) {
+            winner = true;
+        }
+        if (checkVertical(colour)) {
+            winner = true;
+        }
+        if (checkDiagonal()) {
+            winner = true;
+        }
         return winner;
-
     }
 
     // accessor - returns boolean if the draw condition is meant.
     public boolean checkDrawState() {
 
         Boolean draw = false;
-        // add checks here.
+        // add check if the board is full.
         return draw;
 
     }
 
     // accessor - returns true if a diagonal of 4 is matched.
-    public void checkDiagonal() {
+    public boolean checkDiagonal() {
         // to do.
+        return false;
     }
 
-    // accessor - returns ture if a horizontal of 4 is matched.
-    public void checkHorizontal() {
+    // accessor - returns true if 4 concecutive horizontal matches are found.
+    public boolean checkHorizontal(String colour) {
 
-        // int rows = board.getRows();
-        // int columns = board.getColumns();
-        // Counter[][] newBoard = board.getBoard();
+        int rows = board.getRows();
+        int columns = board.getColumns();
+        Counter[][] currentBoard = board.getBoard();
 
-        // // int count = 0;
-        // // iterate through each row in the board.
-        // for (int row = 0; row < rows; row++) {
-        // // to do.
-        // }
+        // iterate through each row on the board.
+        for (int row = 0; row < rows; row++) {
+            int winningCount = 4;
+            // iterate through each column on the board.
+            for (int column = 0; column < columns; column++) {
+                // if the counters colour is the same as the players.
+                // ISSUE ---> null pointer exception
+                if (currentBoard[row][column].getColour().equals(colour)) {
+                    // remove 1 from the winningCount.
+                    winningCount--;
+                    // if the winningCount is 0 then win condition met.
+                    if (winningCount == 0) {
+                        return true;
+                    }
+                } else {
+                    winningCount = 4;
+                }
+            }
+        }
+        return false;
     }
 
-    // accessor - returns true if a vertical of 4 is matched.
-    public void checkVertical() {
+    // accessor - returns true if 4 concecutive vertical matches are found.
+    public boolean checkVertical(String colour) {
 
-        // //
-        // int rows = board.getRows();
-        // int columns = board.getColumns();
-        // Counter[][] newBoard = board.getBoard();
+        int rows = board.getRows();
+        int columns = board.getColumns();
+        Counter[][] currentBoard = board.getBoard();
 
-        // // iterating through each column in the board.
-        // for (int column = 0; column < columns; column++) {
-        // int count = 0;
-        // // iterating through each row of the column.
-        // for (int row = 0; row < rows; row++) {
-        // // if the counters colour is the same as the players.
-        // if (newBoard[row][column].getColour().equals(colour)) {
-        // // add 1 to the count.
-        // count++;
-        // } else if (!newBoard[row][column].getColour().equals(colour)) {
-        // count = 0;
-        // }
-        // }
-
-        // // // check win clause.
-        // // if (count >= 4) {
-        // // return true;
-        // // } else {
-        // // return false;
-        // // }
-        // }
-        // return false;
+        // iterating through each column in the board.
+        for (int column = 0; column < columns; column++) {
+            int winningCount = 4;
+            // iterating through each row of the column.
+            for (int row = 0; row < rows; row++) {
+                // if the counters colour is the same as the players.
+                if (currentBoard[row][column].getColour().equals(colour)) {
+                    // remove 1 from the winningCount.
+                    winningCount--;
+                    // if the winningCount is 0 then win condition met.
+                    if (winningCount == 0) {
+                        return true;
+                    }
+                } else {
+                    winningCount = 4;
+                }
+            }
+        }
+        return false;
     }
 }
