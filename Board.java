@@ -13,32 +13,33 @@
 
 public class Board {
 
-    private static int rows = 6;
-    private static int columns = 7;
+    private static final int ROWS = 6;
+    private static final int COLUMNS = 7;
 
-    Counter[][] newBoard = new Counter[rows][columns];
+    static Counter[][] newBoard = new Counter[ROWS][COLUMNS];
 
-    // accessor -
+    // accessor - returns the number of rows on the board.
     public int getRows() {
-        return rows;
+        return ROWS;
     }
 
-    // accessor -
+    // accessor - returns the number of columns on the board.
     public int getColumns() {
-        return columns;
+        return COLUMNS;
     }
 
-    // accessor -
+    // accessor - returns the crrent state of the board.
     public Counter[][] getBoard() {
         return newBoard;
     }
 
+    //
     public void printBoard() {
-        for (int row = 0; row < rows; row++) {
+        for (int row = 0; row < ROWS; row++) {
             System.out.print("|");
-            for (int column = 0; column < columns; column++) {
+            for (int column = 0; column < COLUMNS; column++) {
                 if (newBoard[row][column] == null) {
-                    System.out.print("\t");
+                    System.out.print(" ");
                 } else {
                     System.out.print(newBoard[row][column].getColour());
                 }
@@ -46,18 +47,18 @@ public class Board {
             }
             System.out.println();
         }
-        System.out.println("    1\t    2\t    3\t    4\t    5\t    6\t    7");
+        System.out.println(" 1 2 3 4 5 6 7");
         System.out.println();
     }
 
-    public boolean addPiece(int columnToAdd, String colour) {
+    public static boolean addPiece(int columnToAdd, String colour) {
         boolean addedpiece = false;
         // check if a correct column is selected.
-        if (columnToAdd >= 0 && columnToAdd < columns) {
+        if (columnToAdd >= 0 && columnToAdd < COLUMNS) {
             // check if the column selected is full.
             if (newBoard[0][columnToAdd] == null) {
                 // iterate through positions in column from bottom to top.
-                for (int row = rows - 1; row >= 0; row--) {
+                for (int row = ROWS - 1; row >= 0; row--) {
                     // if possition in column is empty.
                     if (newBoard[row][columnToAdd] == null) {
                         newBoard[row][columnToAdd] = new Counter();
