@@ -5,14 +5,20 @@ public class ConnectFour {
     private Board board;
     private Boolean playerTurn = false;
     private String playerColour;
+    private String playerSymbol;
     private String compColour;
+    private String compSymbol;
 
-    // constructor -
-    public ConnectFour(String playerColour, String compColour) {
-        // adds a new player.
+    // constructor - sets up the connect four game.
+    public ConnectFour(String playerColour, String playerSymbol, String compColour, String compSymbol) {
+        // adds a new player colour.
         this.playerColour = playerColour;
-        // adds a new computer.
+        // adds a new player symbol.
+        this.playerSymbol = playerSymbol;
+        // adds a new computer colour.
         this.compColour = compColour;
+        // adds a new computer symbol.
+        this.compSymbol = compSymbol;
         // creates a new board.
         this.board = new Board();
         // changes player turn.
@@ -22,48 +28,53 @@ public class ConnectFour {
     // - game logic
     public void playGame() {
 
-        Boolean gameRunning = true;
+        // randomise the starting player.
 
         // for each turn.
-        while (Boolean.TRUE.equals(gameRunning)) {
+        while (true) {
 
             String colour;
+            String symbol;
 
             // checking the turn.
             if (Boolean.TRUE.equals(playerTurn)) {
                 colour = playerColour;
+                symbol = playerSymbol;
                 System.out.println("Current Turn : Player\n");
 
             } else {
                 colour = compColour;
+                symbol = compSymbol;
                 System.out.println("Current Turn : Computer\n");
             }
 
             // print the board.
             board.printBoard();
 
+            // starting the players turn.
+            Board.addCounter((playerTurn(colour, symbol)), colour, symbol);
+
+            // checks if there is a winner.
+            if (checkWinState(colour) || checkDrawState()) {
+                // winner or draw condition found - end of the game.
+                break;
+                // get winner colour.
+            }
+            playerTurn = !playerTurn;
+        }
+    }
+
+    public int playerTurn(String colour, String symbol) {
+
+        while (true) {
             // getting user input.
             System.out.println("Select a column value between 1 and " + board.getColumns() + ":");
             Scanner input = new Scanner(System.in);
             int selection = input.nextInt() - 1;
-
-            // adding counter to the board.
-            Boolean successful = Board.addPiece(selection, colour);
-
-            // if piece added end turn.
-            if (Boolean.TRUE.equals(successful)) {
-                // checks if there is a winner.
-                if (checkWinState(colour)) {
-                    // winner found - end of the game.
-                    gameRunning = !gameRunning;
-                    // get winner colour.
-                } else if (checkDrawState()) {
-                    // draw condition found - end of the game.
-                    gameRunning = !gameRunning;
-                }
-
-                playerTurn = !playerTurn;
-
+            // input.close(); // causes an error.
+            // check column input is okay and column is not full.
+            if (Board.checkColumnInput(selection + 1) && !Board.checkColumnFull(selection)) {
+                return selection;
             }
         }
     }
@@ -73,7 +84,7 @@ public class ConnectFour {
         return playerTurn;
     }
 
-    // accessor - returns boolean if the win condition is meant.
+    // accessor - returns olean if the win condition is meant.
     public boolean checkWinState(String colour) {
 
         Boolean winner = false;
@@ -94,6 +105,7 @@ public class ConnectFour {
 
         Boolean draw = false;
         // add check if the board is full.
+
         return draw;
 
     }
@@ -140,9 +152,12 @@ public class ConnectFour {
         int columns = board.getColumns();
         Counter[][] currentBoard = board.getBoard();
 
+        // simplify.
+        // parse in position
+
         // iterating through each column in the board.
         for (int column = 0; column < columns; column++) {
-            int winningCount = 4;
+            int winningCount = 4; // static variable??
             // iterating through each row of the column.
             for (int row = 0; row < rows; row++) {
                 // if the counters colour is the same as the players.

@@ -1,22 +1,26 @@
-
-// NOTES
-// -----
-// [X] adding counters to the board.
-// [X] printing board: 6 by 7 array.
-// [X] add comments.
-// [ ] add logger to handle outputs.
-//
-// modifies printBoard() lines 129 - 145.
-// modifies placeCounter() Lines 147 - 175.
-//  removes player if test from placeCounter. 
-//  instead uses Counter class. 
+/**
+ * NOTES
+ * -----
+ * modifies printBoard() lines 129 - 145.
+ * modifies placeCounter() Lines 147 - 175.
+ * removes player if test from placeCounter.
+ * instead uses Counter class.
+ * 
+ * 
+ * 
+ */
 
 public class Board {
 
+    // field - Initalising the boards height.
     private static final int ROWS = 6;
+    // field - Initalising the boards width.
     private static final int COLUMNS = 7;
 
+    // field - creating a new board object.
     static Counter[][] newBoard = new Counter[ROWS][COLUMNS];
+    // field - creating a new column head position object.
+    static int[] columnHead = new int[COLUMNS];
 
     // accessor - returns the number of rows on the board.
     public int getRows() {
@@ -33,7 +37,28 @@ public class Board {
         return newBoard;
     }
 
-    //
+    // ??? - checks if a correct column input has been selected.
+    public static boolean checkColumnInput(int columnToAdd) {
+        if (columnToAdd >= 0 && columnToAdd < COLUMNS) {
+            return true;
+        } else {
+            System.out.println("Error: select a column number between 1 and 7.");
+            return false;
+        }
+    }
+
+    // ??? - checks if a column is full (true) or not (false).
+    public static boolean checkColumnFull(int columnToAdd) {
+        if (columnHead[columnToAdd] <= ROWS) {
+            return false;
+        } else {
+            int col = columnToAdd + 1;
+            System.out.println("Error: column " + col + " is full.");
+            return true;
+        }
+    }
+
+    // ??? - prints out the current state of the board.
     public void printBoard() {
         for (int row = 0; row < ROWS; row++) {
             System.out.print("|");
@@ -51,32 +76,11 @@ public class Board {
         System.out.println();
     }
 
-    //
-    public static boolean addPiece(int columnToAdd, String colour) {
-        boolean addedpiece = false;
-        // check if a correct column is selected.
-        if (columnToAdd >= 0 && columnToAdd < COLUMNS) {
-            // check if the column selected is full.
-            if (newBoard[0][columnToAdd] == null) {
-                // iterate through positions in column from bottom to top.
-                for (int row = ROWS - 1; row >= 0; row--) {
-                    // if possition in column is empty.
-                    if (newBoard[row][columnToAdd] == null) {
-                        newBoard[row][columnToAdd] = new Counter();
-                        newBoard[row][columnToAdd].setColour(colour);
-                        addedpiece = true;
-                        break;
-                    }
-                }
-                return addedpiece;
-            } else {
-                int col = columnToAdd + 1;
-                System.out.println("Error: column " + col + " is full.");
-                return addedpiece;
-            }
-        } else {
-            System.out.println("Error: select a column number between 1 and 7.");
-            return addedpiece;
-        }
+    // ??? - adds a counter to the board and returns true, if it can't return false.
+    public static void addCounter(int columnToAdd, String colour, String symbol) {
+        // columnHead[columnToadd] is the next position in the column.
+        newBoard[columnHead[columnToAdd]][columnToAdd] = new Counter();
+        newBoard[columnHead[columnToAdd]][columnToAdd].setCounter(colour, symbol);
+        columnHead[columnToAdd]++;
     }
 }
