@@ -5,16 +5,13 @@
  * modifies placeCounter() Lines 147 - 175.
  * removes player if test from placeCounter.
  * instead uses Counter class.
- * 
- * 
- * 
  */
 
 public class Board {
 
-    // field - Initalising the boards height.
+    // field - Initialising the boards height.
     private static final int ROWS = 6;
-    // field - Initalising the boards width.
+    // field - Initialising the boards width.
     private static final int COLUMNS = 7;
 
     // field - creating a new board object.
@@ -32,12 +29,17 @@ public class Board {
         return COLUMNS;
     }
 
-    // accessor - returns the crrent state of the board.
+    // accessor - returns the current state of the board.
     public Counter[][] getBoard() {
         return newBoard;
     }
 
-    // ??? - checks if a correct column input has been selected.
+    // acccessor - returns the column head value for the inputted column.
+    public int getColumnHead(int columnToAdd) {
+        return columnHead[columnToAdd];
+    }
+
+    // accessor - checks if a correct column input has been selected.
     public static boolean checkColumnInput(int columnToAdd) {
         if (columnToAdd >= 0 && columnToAdd < COLUMNS) {
             return true;
@@ -47,7 +49,7 @@ public class Board {
         }
     }
 
-    // ??? - checks if a column is full (true) or not (false).
+    // accessor - checks if a column is full (true) or not (false).
     public static boolean checkColumnFull(int columnToAdd) {
         if (columnHead[columnToAdd] <= ROWS) {
             return false;
@@ -58,7 +60,7 @@ public class Board {
         }
     }
 
-    // ??? - prints out the current state of the board.
+    // accessor - prints out the current state of the board.
     public void printBoard() {
         for (int row = 0; row < ROWS; row++) {
             System.out.print("|");
@@ -76,7 +78,8 @@ public class Board {
         System.out.println();
     }
 
-    // ??? - adds a counter to the board and returns true, if it can't return false.
+    // accessor - adds a counter to the board and returns true, if it can't return
+    // false.
     public static void addCounter(int columnToAdd, String colour, String symbol) {
         // columnHead[columnToadd] is the next position in the column.
         newBoard[columnHead[columnToAdd]][columnToAdd] = new Counter();
