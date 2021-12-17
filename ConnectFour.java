@@ -1,11 +1,23 @@
 import java.util.Random;
-import java.util.Scanner;
 
 /**
- * NOTES
- * -----
+ * <h1>ConnectFour</h1>
+ * Class for all methods related to playing a game of Connect Four.
  * 
+ * <b>Methods:</b>
+ * - ConnectFour(String, String, String, String, String, String)
+ * - playGame()
+ * - checkTurn()
+ * - checkWinner(int, int, String, String)
+ * - drawCondition(int)
+ * - countCountersInLine(int, int, int, int, String)
+ * - checkDiagonal(int, int, String, String)
+ * - checkHorizontal(int, int, String, String)
+ * - checkVertical(int, int, String, String)
  * 
+ * @author Sam Higgs
+ * @version 1.0.0
+ * @since 2021-12-17
  */
 
 public class ConnectFour {
@@ -28,16 +40,36 @@ public class ConnectFour {
     private String compSymbol;
     // field - Initialising random variable to radomise starting player.
     private Random random = new Random();
-    // field - Initialising end of game state -1 playing, 0 = draw, 1 = winner.i
+    // field - Initialising end of game state -1 playing, 0 = draw, 1 = winner.
     private int endState;
-    //
+    // field - Initialising currentRow as an int.
     private int currentRow;
-    //
+    // field - Initialising playerSelection as Player object.
     private Player playerSelection;
-    //
+    // field - Initialising compSelection as Computer object.
     private Computer compSelection;
 
-    // constructor - sets up the connect four game.
+    /**
+     * <h1>ConnectFour</h1>
+     * creates a new instances of player name, colour and symbol at the start of
+     * each game.
+     * creates a new instances of computer name, colour and symbol at the start of
+     * each game.
+     * creates a new instances of the board at the start of each game.
+     * creates a new instances of currentRow at the start of each game set to -1.
+     * creates a new instances of playerTurn at the start of each game.
+     * creates a new instances of playerSelection at the start of each game.
+     * creates a new instances of computerSelection at the start of each game.
+     * 
+     * <b>Note:</b> constructor method.
+     * 
+     * @param playerName
+     * @param playerColour
+     * @param playerSymbol
+     * @param compName
+     * @param compColour
+     * @param compSymbol
+     */
     public ConnectFour(String playerName, String playerColour, String playerSymbol, String compName, String compColour,
             String compSymbol) {
         // adds a new player name.
@@ -64,7 +96,11 @@ public class ConnectFour {
         this.compSelection = new Computer();
     }
 
-    // - game logic.
+    /**
+     * <h1>playGame</h1>
+     * contains all the game logic for Connect Four.
+     * <b>Note:</b> ... method.
+     */
     public void playGame() {
 
         int turnCounter = 1;
@@ -101,7 +137,7 @@ public class ConnectFour {
             if (Boolean.TRUE.equals(playerTurn)) {
                 columnSelection = playerSelection.playerTurn(board);
             } else {
-                columnSelection = compSelection.computerTurnRandom(board);
+                columnSelection = compSelection.computerTurn(board);
             }
 
             // starting the players turn.
@@ -131,12 +167,28 @@ public class ConnectFour {
         }
     }
 
-    // accessor - returns boolean if it is players turn or not.
+    /**
+     * <h1>checkTurn</h1>
+     * returns boolean as to whether it is the player's turn or not.
+     * <b>Note:</b> accessor method.
+     * 
+     * @return boolean playerTurn.
+     */
     public boolean checkTurn() {
         return playerTurn;
     }
 
-    // accessor - returns boolean if the win condition is meant.
+    /**
+     * <h1>checkWinner</h1>
+     * returns boolean as to whether the win condition is meant.
+     * <b>Note:</b> accessor method.
+     * 
+     * @param columnPosition
+     * @param rowPosition
+     * @param colour
+     * @param symbol
+     * @return boolean winner.
+     */
     public boolean checkWinner(int columnPosition, int rowPosition, String colour, String symbol) {
 
         Boolean winner = false;
@@ -149,7 +201,14 @@ public class ConnectFour {
         return winner;
     }
 
-    // accessor - returns boolean if the draw condition is meant.
+    /**
+     * <h1>drawCondition</h1>
+     * returns boolean as to whether the draw condition is meant.
+     * <b>Note:</b> accessor method.
+     * 
+     * @param turnCounter
+     * @return boolean draw.
+     */
     public boolean drawCondition(int turnCounter) {
 
         Boolean draw = false;
@@ -162,9 +221,18 @@ public class ConnectFour {
         return draw;
     }
 
-    /*
-     * accessor - checking for a sequence of the same counters at a column/ row
-     * position and return the number found.
+    /**
+     * <h1>countCountersInLine</h1>
+     * checking for a sequence of the same counters at a column/ row position and
+     * return the number found.
+     * <b>Note:</b> accessor method.
+     * 
+     * @param columnPosition
+     * @param rowPosition
+     * @param stepColumn
+     * @param stepRow
+     * @param colour
+     * @returni int countersInLine
      */
     public int countCountersInLine(int columnPosition, int rowPosition, int stepColumn, int stepRow, String colour) {
 
@@ -193,7 +261,18 @@ public class ConnectFour {
         return countersInLine;
     }
 
-    // accessor - returns true if 4 consecutive diagonal counters are found.
+    /**
+     * <h1>checkDiagonal</h1>
+     * returns true if 4 consecutive diagonal counters are found.
+     * if any instance of {@link ConnectFour#countCountersInLine()} returns >=4
+     * <b>Note:</b> accessor method.
+     * 
+     * @param columnPosition
+     * @param rowPosition
+     * @param colour
+     * @param symbol
+     * @return boolean winCondition.
+     */
     public boolean checkDiagonal(int columnPosition, int rowPosition, String colour, String symbol) {
         Boolean winCondition = false;
 
@@ -215,7 +294,18 @@ public class ConnectFour {
         return winCondition;
     }
 
-    // accessor - returns true if 4 consecutive horizontal counters are found.
+    /**
+     * <h1>checkHorizontal</h1>
+     * returns true if 4 consecutive horizontal counters are found.
+     * if any instance of {@link ConnectFour#countCountersInLine()} returns >=4
+     * <b>Note:</b> accessor method.
+     * 
+     * @param columnPosition
+     * @param rowPosition
+     * @param colour
+     * @param symbol
+     * @return boolean winCondition.
+     */
     public boolean checkHorizontal(int columnPosition, int rowPosition, String colour, String symbol) {
         Boolean winCondition = false;
 
@@ -231,7 +321,18 @@ public class ConnectFour {
         return winCondition;
     }
 
-    // accessor - returns true if 4 consecttive vertical counters are found.
+    /**
+     * <h1>checkHorizontal</h1>
+     * returns true if 4 consecutive vertical counters are found.
+     * if any instance of {@link ConnectFour#countCountersInLine()} returns >=4
+     * <b>Note:</b> accessor method.
+     * 
+     * @param columnPosition
+     * @param rowPosition
+     * @param colour
+     * @param symbol
+     * @return boolean winCondition.
+     */
     public boolean checkVertical(int columnPosition, int rowPosition, String colour, String symbol) {
         Boolean winCondition = false;
 

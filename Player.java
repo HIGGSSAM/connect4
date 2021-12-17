@@ -1,6 +1,29 @@
+/**
+ * <h1>Player</h1>
+ * Class for all methods related to the player turn during a Connect Four game.
+ * 
+ * <b>Methods:</b>
+ * - PlayerTurn(Board)
+ * 
+ * <b>Development Notes:</b> this class can be expanded to work with other input
+ * methods for placing a counter in a selected board column.
+ * 
+ * @author Sam Higgs
+ * @version 1.0.0
+ * @since 2021-12-17
+ */
 public class Player {
 
-    // accessor - prompts user for input and returns the selection.
+    /**
+     * <h1>playerTurn</h1>
+     * prompts user for terminal input {@link TerminalDisplay#playerTurnInput()} and
+     * validates input.
+     * if {@link Board#checkColumnInput()} is true then return input column int.
+     * <b>Note:</b> ... method.
+     * 
+     * @param board
+     * @return int playerSelection.
+     */
     public int playerTurn(Board board) {
 
         while (true) {
