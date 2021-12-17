@@ -1,3 +1,10 @@
+/**
+ * NOTES
+ * -----
+ * 
+ * 
+ */
+
 public class Counter {
 
     // field - Initialise the colour and symbol of the counter.

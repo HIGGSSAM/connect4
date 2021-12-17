@@ -1,10 +1,10 @@
 /**
- * NOTES
- * -----
- * modifies printBoard() lines 129 - 145.
- * modifies placeCounter() Lines 147 - 175.
- * removes player if test from placeCounter.
- * instead uses Counter class.
+ * <h1>Board</h1>
+ * Class for all methods related to the connect four Board.
+ *
+ * @author Sam Higgs
+ * @version 0.1.0
+ * @since 2021-12-17
  */
 
 public class Board {
@@ -13,11 +13,15 @@ public class Board {
     private static final int ROWS = 6;
     // field - Initialising the boards width.
     private static final int COLUMNS = 7;
-
     // field - creating a new board object.
-    static Counter[][] newBoard = new Counter[ROWS][COLUMNS];
+    private Counter[][] newBoard;
     // field - creating a new column head position object.
-    static int[] columnHead = new int[COLUMNS];
+    private int[] columnHead;
+
+    public Board() {
+        this.newBoard = new Counter[ROWS][COLUMNS];
+        this.columnHead = new int[COLUMNS];
+    }
 
     // accessor - returns the number of rows on the board.
     public int getRows() {
@@ -34,56 +38,58 @@ public class Board {
         return newBoard;
     }
 
-    // acccessor - returns the column head value for the inputted column.
+    // accessor - returns Counter object of the row and column position.
+    public Counter getCounter(int rowPos, int colPos) {
+        return newBoard[rowPos][colPos];
+    }
+
+    /**
+     * <h1>getColumnHead</h1>
+     * returns the column head value for the inputted column.
+     * <b>Note:</b> accessor method.
+     * 
+     * @param columnToAdd is the column number when counter is added to.
+     * @return int column head value.
+     */
     public int getColumnHead(int columnToAdd) {
         return columnHead[columnToAdd];
     }
 
-    // accessor - checks if a correct column input has been selected.
-    public static boolean checkColumnInput(int columnToAdd) {
-        if (columnToAdd >= 0 && columnToAdd < COLUMNS) {
-            return true;
-        } else {
-            System.out.println("Error: select a column number between 1 and 7.");
-            return false;
-        }
-    }
-
-    // accessor - checks if a column is full (true) or not (false).
-    public static boolean checkColumnFull(int columnToAdd) {
-        if (columnHead[columnToAdd] <= ROWS) {
-            return false;
-        } else {
-            int col = columnToAdd + 1;
-            System.out.println("Error: column " + col + " is full.");
-            return true;
-        }
-    }
-
-    // accessor - prints out the current state of the board.
-    public void printBoard() {
-        for (int row = 0; row < ROWS; row++) {
-            System.out.print("|");
-            for (int column = 0; column < COLUMNS; column++) {
-                if (newBoard[row][column] == null) {
-                    System.out.print(" ");
-                } else {
-                    System.out.print(newBoard[row][column].getColour());
-                }
-                System.out.print("|");
+    /**
+     * <h1>checkColumnInput</h1>
+     * checks if counter can be added to the selected column.
+     * <b>Note:</b> static accessor method.
+     * 
+     * @param columnToAdd is the column number when counter is added to.
+     * @return boolean if the counter can be added of not.
+     */
+    public boolean checkColumnInput(int columnToAdd) {
+        if (columnToAdd >= 0 && columnToAdd <= COLUMNS - 1) {
+            if (columnHead[columnToAdd] <= ROWS - 1) {
+                return true;
             }
-            System.out.println();
+            TerminalDisplay.errorMessage("Error: column " + (columnToAdd + 1) + " is full.");
+        } else {
+            TerminalDisplay.errorMessage("Error: select a column number between 1 and 7.");
         }
-        System.out.println(" 1 2 3 4 5 6 7");
-        System.out.println();
+        return false;
     }
 
-    // accessor - adds a counter to the board and returns true, if it can't return
-    // false.
-    public static void addCounter(int columnToAdd, String colour, String symbol) {
+    /**
+     * <h1>addCounter</h1>
+     * adds a counter to the board at the inputted column.
+     * <b>Note:</b> accessor method.
+     * 
+     * @param columnToAdd is the column number when counter is added to.
+     * @param colour      is the players counter colour.
+     * @param symbol      is the players counter symbol.
+     * @return int the postion of the counter on the board.
+     */
+    public int addCounter(int columnToAdd, String colour, String symbol) {
         // columnHead[columnToadd] is the next position in the column.
         newBoard[columnHead[columnToAdd]][columnToAdd] = new Counter();
         newBoard[columnHead[columnToAdd]][columnToAdd].setCounter(colour, symbol);
         columnHead[columnToAdd]++;
+        return columnHead[columnToAdd] - 1;
     }
 }
