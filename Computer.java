@@ -21,14 +21,14 @@ import java.util.Random;
 
 public class Computer {
 
-    // ??
+    // Initialising random object.
     private static Random random = new Random();
 
     /**
      * <h1>computerTurn</h1>
      * generates a random number between 1 and 7.
      * if {@link Board#checkColumnInput()} is true then return input column int.
-     * <b>Note:</b> ... method.
+     * <b>Note:</b> accessor method.
      * 
      * @param board
      * @return int playerSelection.

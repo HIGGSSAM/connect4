@@ -19,9 +19,9 @@
 
 public class Board {
 
-    // field - Initialising the boards height.
+    // field - Initialising the board height constant.
     private static final int ROWS = 6;
-    // field - Initialising the boards width.
+    // field - Initialising the board width constant.
     private static final int COLUMNS = 7;
     // field - Initailisng a new board object.
     private Counter[][] newBoard;

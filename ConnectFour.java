@@ -86,20 +86,20 @@ public class ConnectFour {
         this.compSymbol = compSymbol;
         // creates a new board.
         this.board = new Board();
-        //
+        // setting current row to -1.
         this.currentRow = -1;
         // randomises the starting players turn.
         this.playerTurn = random.nextBoolean();
-        //
+        // setting player selection to user player.
         this.playerSelection = new Player();
-        //
+        // setting computer section to computer.
         this.compSelection = new Computer();
     }
 
     /**
      * <h1>playGame</h1>
      * contains all the game logic for Connect Four.
-     * <b>Note:</b> ... method.
+     * <b>Note:</b> mutator method without input parameter.
      */
     public void playGame() {
 

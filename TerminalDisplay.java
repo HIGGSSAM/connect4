@@ -30,7 +30,7 @@ public class TerminalDisplay {
         throw new IllegalStateException("Terminal Uitility class");
     }
 
-    //
+    // Initialising scanner input object (keyboard input).
     private static Scanner input = new Scanner(System.in);
 
     // cursor control and screen actions
@@ -54,8 +54,8 @@ public class TerminalDisplay {
 
     /**
      * <h1>printBoard</h1>
-     * prints out the current state of the board..
-     * <b>Note:</b> accessor method.
+     * prints out the current state of the board.
+     * <b>Note:</b> mutator method.
      * 
      * @param currentBoard
      */
@@ -80,7 +80,7 @@ public class TerminalDisplay {
     /**
      * <h1>displayPlayerTurn</h1>
      * prints out a current turn message to the terminal.
-     * <b>Note:</b> accessor method.
+     * <b>Note:</b> mutator method.
      * 
      * @param name
      * @param symbol
@@ -95,7 +95,7 @@ public class TerminalDisplay {
     /**
      * <h1>displayMessage</h1>
      * prints out inputted string to the terminal.
-     * <b>Note:</b> accessor method.
+     * <b>Note:</b> mutator method.
      * 
      * @param displayMessage
      */
@@ -106,7 +106,7 @@ public class TerminalDisplay {
     /**
      * <h1>errorMessage</h1>
      * prints out an error message to the terminal.
-     * <b>Note:</b> accessor method.
+     * <b>Note:</b> mutator method.
      * 
      * @param errorMessage
      */
@@ -118,7 +118,7 @@ public class TerminalDisplay {
      * <h1>endGameMessage</h1>
      * prints out either a win or draw message to the terminal depending on the
      * endState.
-     * <b>Note:</b> accessor method.
+     * <b>Note:</b> mutator method.
      * 
      * @param endState
      * @param name
@@ -170,7 +170,6 @@ public class TerminalDisplay {
      * returns string from terminal user input.
      * <b>Note:</b> accessor method.
      * 
-     * @exception
      * @return string user input.
      */
     private static String getInput() {

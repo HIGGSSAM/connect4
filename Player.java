@@ -19,7 +19,7 @@ public class Player {
      * prompts user for terminal input {@link TerminalDisplay#playerTurnInput()} and
      * validates input.
      * if {@link Board#checkColumnInput()} is true then return input column int.
-     * <b>Note:</b> ... method.
+     * <b>Note:</b> accessor method.
      * 
      * @param board
      * @return int playerSelection.
